@@ -163,7 +163,7 @@ body.no-scroll{ overflow: hidden; }
 .header{
   position: fixed;
   inset-inline: 0; top: 0;
-  z-index: 900;
+  z-index: 970;
   transition: background var(--transition), box-shadow var(--transition), padding var(--transition);
   padding-block: 18px;
   padding-top: calc(18px + env(safe-area-inset-top, 0px));
@@ -746,6 +746,7 @@ body.no-scroll{ overflow: hidden; }
   color: var(--blue-dark);
 }
 .ba-slide__label{ margin-top: 22px; font-family: var(--font-display); font-size: 1.2rem; }
+.ba-slide__disclaimer{ margin-top: 4px; font-size: 0.78rem; color: var(--gray-dark); opacity: 0.7; }
 
 .ba-slider__controls{
   display: flex; align-items: center; justify-content: center;
