@@ -130,6 +130,32 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  /* ---------------- Destaque do link ativo conforme a seção (scrollspy) ---------------- */
+  const spyLinks = Array.from(document.querySelectorAll('.nav__link[href^="#"]'));
+  if (spyLinks.length && 'IntersectionObserver' in window) {
+    const sectionToLink = new Map();
+    spyLinks.forEach((link) => {
+      const section = document.getElementById(link.getAttribute('href').slice(1));
+      if (section) sectionToLink.set(section, link);
+    });
+
+    const setActiveLink = (activeLink) => {
+      spyLinks.forEach((l) => l.classList.toggle('is-active', l === activeLink));
+    };
+
+    const spyObserver = new IntersectionObserver((entries) => {
+      const mostVisible = entries
+        .filter((entry) => entry.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+      if (mostVisible) {
+        const link = sectionToLink.get(mostVisible.target);
+        if (link) setActiveLink(link);
+      }
+    }, { rootMargin: '-45% 0px -45% 0px', threshold: [0, 0.25, 0.5, 0.75, 1] });
+
+    sectionToLink.forEach((_link, section) => spyObserver.observe(section));
+  }
+
   /* ---------------- Botão voltar ao topo ---------------- */
   const backToTop = document.getElementById('backToTop');
   if (backToTop) {
